@@ -148,6 +148,9 @@ import java.util.List;
 import java.util.*;
 import java.util.Map.Entry;
 
+
+import com.oneof90.main.MainRegistry1of90;
+
 public class ClientProxy extends ServerProxy {
 
 	private static final I18nClient I18N = new I18nClient();
@@ -163,10 +166,12 @@ public class ClientProxy extends ServerProxy {
 
 		QMAWLoader.registerModFileURL(FMLCommonHandler.instance().findContainerFor(RefStrings.MODID).getSource());
 	}
-
 	/** Runs right after item and block init */
 	@Override
 	public void registerRenderInfo() {
+
+		MainRegistry1of90.initClient();
+
 
 		registerClientEventHandler(new ModEventHandlerClient());
 		registerClientEventHandler(new ModEventHandlerRenderer());

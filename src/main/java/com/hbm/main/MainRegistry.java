@@ -107,6 +107,9 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 
+import com.oneof90.main.MainRegistry1of90;
+import com.oneof90.main.ModItems1of90;
+
 @Mod(modid = RefStrings.MODID, name = RefStrings.NAME, version = RefStrings.VERSION)
 public class MainRegistry {
 
@@ -169,6 +172,7 @@ public class MainRegistry {
 	public static CreativeTabs missileTab = new MissileTab(CreativeTabs.getNextID(), "tabMissile");				// missiles, satellites
 	public static CreativeTabs weaponTab = new WeaponTab(CreativeTabs.getNextID(), "tabWeapon");				// turrets, weapons, ammo
 	public static CreativeTabs consumableTab = new ConsumableTab(CreativeTabs.getNextID(), "tabConsumable");	// drinks, kits, tools
+	public static CreativeTabs oneof90Tab = new com.oneof90.tabs.taboneof90(CreativeTabs.getNextID(), "tabOneof90");	// 1of90 plumbing tools
 
 	// Statistics
 	public static StatBase statLegendary;
@@ -282,6 +286,8 @@ public class MainRegistry {
 		Fluids.init();
 		MaterialShapes.customShapesInit();
 		proxy.registerPreRenderInfo();
+		MainRegistry1of90.init();
+		MainRegistry1of90.mainRegistry();
 		ModBlocks.mainRegistry();
 		ModItems.mainRegistry();
 		ModBiomes.init();

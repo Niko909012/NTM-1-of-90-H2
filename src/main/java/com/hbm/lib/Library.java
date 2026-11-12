@@ -5,6 +5,7 @@ import api.hbm.energymk2.IEnergyConnectorBlock;
 import api.hbm.energymk2.IEnergyConnectorMK2;
 import api.hbm.fluidmk2.IFluidConnectorBlockMK2;
 import api.hbm.fluidmk2.IFluidConnectorMK2;
+import api.hbm.fluidmk2.forge.ForgeFluidPipeDetector;
 
 import com.hbm.blocks.ModBlocks;
 import com.hbm.entity.mob.EntityHunterChopper;
@@ -98,6 +99,10 @@ public class Library {
 			if(con.canConnect(type, dir.getOpposite() /* machine's connecting side */))
 				return true;
 		}
+
+		// Forge fluid compat: foreign fluid pipes (BuildCraft and friends) do not implement the HBM connector API,
+		// they only answer the Forge fluid handler, so allow ducts to link up with them as well.
+		if(ForgeFluidPipeDetector.isForeignFluidHandler(te)) return true;
 
 		return false;
 	}
