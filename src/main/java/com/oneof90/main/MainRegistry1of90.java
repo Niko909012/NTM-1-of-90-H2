@@ -5,7 +5,10 @@ import com.oneof90.tileentity.*;
 
 import api.hbm.fluidmk2.forge.CompatFluidMK2Registry;
 
+import com.oneof90.handler.BulkLoaderClickHandler;
+
 import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraftforge.client.MinecraftForgeClient;
 import com.oneof90.render.item.ItemRenderNTMSteelBeam;
 import com.oneof90.render.item.ItemRenderNTMSteelBeamVertical;
@@ -41,6 +44,9 @@ public class MainRegistry1of90 {
 	public static void initClient() {
 		registerTileEntityRenderers();
 		registerItemRenderers();
+
+		// middle mouse click opens the bulk loader GUI
+		FMLCommonHandler.instance().bus().register(new BulkLoaderClickHandler());
 	}
 
 	/**

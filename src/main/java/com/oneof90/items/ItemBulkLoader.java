@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.lwjgl.opengl.GL11;
 
+import com.hbm.items.IItemControlReceiver;
 import com.hbm.main.MainRegistry;
 import com.hbm.tileentity.IGUIProvider;
 import com.hbm.util.ItemStackUtil;
@@ -29,23 +30,29 @@ import net.minecraft.world.World;
 /**
  * Bulk Item Loader
  *
- * Right-click the air to open the GUI and load a single item stack into the tool.
+ * Middle-click (mouse wheel click) to open the GUI and load a single item stack into the tool.
  * Afterwards, sneak + right-click any inventory (chest, crate, barrel, machine, ...)
  * to fill every empty slot of that inventory with the loaded item.
  *
  * Sneaking is required because 1.7.10 opens a block's own GUI on a normal right click
  * before the held item ever gets a say; sneaking makes vanilla skip that activation.
  */
-public class ItemBulkLoader extends Item implements IGUIProvider {
+public class ItemBulkLoader extends Item implements IGUIProvider, IItemControlReceiver {
+
+	/** Control key sent from the client when the GUI is requested with a middle mouse click. */
+	public static final String KEY_OPEN = "open";
 
 	public ItemBulkLoader() {
 		this.setMaxStackSize(1);
 	}
 
+	/**
+	 * Items never receive mouse input, so the client asks the server to open the GUI instead.
+	 * The container only exists server-side, which is why the request has to travel there first.
+	 */
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		if(!world.isRemote) player.openGui(MainRegistry.instance, 0, world, 0, 0, 0);
-		return stack;
+	public void receiveControl(EntityPlayer player, ItemStack stack, NBTTagCompound data) {
+		if(data.getBoolean(KEY_OPEN)) player.openGui(MainRegistry.instance, 0, player.worldObj, 0, 0, 0);
 	}
 
 	/**
@@ -56,12 +63,12 @@ public class ItemBulkLoader extends Item implements IGUIProvider {
 	public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float fx, float fy, float fz) {
 		ItemStack loaded = getLoadedItem(stack);
 
-		// nothing loaded yet, let the click pass so the GUI can be opened in onItemRightClick
+		// nothing loaded yet or not sneaking, let the click pass so the block itself can be used
 		if(loaded == null || !player.isSneaking()) return false;
 
 		IInventory inventory = getInventoryAt(world, x, y, z);
 
-		// not an inventory, let the click pass (GUI opens in onItemRightClick)
+		// not an inventory, let the click pass to the block
 		if(inventory == null) return false;
 
 		// The client must return false here, otherwise the client returns before sending the
