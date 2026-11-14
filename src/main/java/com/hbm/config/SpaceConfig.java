@@ -38,10 +38,11 @@ public class SpaceConfig {
 	// The Twilight Forest: 40-58
 	// ExtraBiomesXL: needs investigating
 	// NTM upstream: 80-82 for craters
+	// BuildCraft: 126+127 (oil ocean / oil desert)
 
 	// Most mods start at 40 and go up, so easiest way to avoid conflicts is to count backwards!
 
-	public static int orbitBiome = 126;
+	public static int orbitBiome = 86;
 
 	public static int moonBiome = 125;
 	public static int minmusBiome = 124;
