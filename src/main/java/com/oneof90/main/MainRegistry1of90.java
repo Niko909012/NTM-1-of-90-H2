@@ -55,6 +55,7 @@ public class MainRegistry1of90 {
 	@SideOnly(Side.CLIENT)
 	private static void registerTileEntityRenderers() {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityNTMSteelBeam.class, new RenderNTMSteelBeam());
+
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityNTMSteelBeamVertical.class, new RenderNTMSteelBeamVertical());
 	}
 

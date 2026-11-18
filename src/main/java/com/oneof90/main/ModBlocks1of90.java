@@ -4,6 +4,7 @@ import com.hbm.main.MainRegistry;
 import com.oneof90.blocks.InvBlock;
 import com.oneof90.blocks.generic.NTMSteelBeam;
 import com.oneof90.blocks.generic.NTMSteelBeamVertical;
+import com.oneof90.blocks.generic.Reinforcement;
 import com.oneof90.tileentity.*;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -23,8 +24,8 @@ public class ModBlocks1of90 {
 	public static Block ntm_steel_beam_vertical;
 	public static Block cage_ladder;
 	public static Block cage_ladder_base;
+	public static Block reinforcement;
 	public static Block inv_block;
-	public static Block dieselgen;
 
 	/**
 	 * Initialize all 1of90 blocks
@@ -34,14 +35,20 @@ public class ModBlocks1of90 {
 		// Steel Beams
 		ntm_steel_beam = new NTMSteelBeam(Material.iron)
 			.setBlockName("ntm_steel_beam")
-			.setCreativeTab(MainRegistry.blockTab)
+			.setCreativeTab(MainRegistry.oneof90Tab)
 			.setHardness(5.0F)
 			.setResistance(200.0F)
 			.setBlockTextureName("hbm:ntm_steel_beam");
+		reinforcement = new Reinforcement(Material.iron)
+			.setBlockName("reinforcement")
+			.setCreativeTab(MainRegistry.oneof90Tab)
+			.setHardness(5.0F)
+			.setResistance(2000.0F)
+			.setBlockTextureName("oneof90:reinforcement");
 
 		ntm_steel_beam_vertical = new NTMSteelBeamVertical(Material.iron)
 			.setBlockName("ntm_steel_beam_vertical")
-			.setCreativeTab(MainRegistry.blockTab)
+			.setCreativeTab(MainRegistry.oneof90Tab)
 			.setHardness(5.0F)
 			.setResistance(200.0F)
 			.setBlockTextureName("hbm:ntm_steel_beam_vertical");
@@ -60,6 +67,7 @@ public class ModBlocks1of90 {
 		GameRegistry.registerBlock(ntm_steel_beam, ntm_steel_beam.getUnlocalizedName());
 		GameRegistry.registerBlock(ntm_steel_beam_vertical, ntm_steel_beam_vertical.getUnlocalizedName());
 		GameRegistry.registerBlock(inv_block, inv_block.getUnlocalizedName());
+		GameRegistry.registerBlock(reinforcement, reinforcement.getUnlocalizedName());
 	}
 
 	/**

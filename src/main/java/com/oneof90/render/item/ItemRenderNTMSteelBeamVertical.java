@@ -44,7 +44,7 @@ public class ItemRenderNTMSteelBeamVertical implements IItemRenderer {
 		case EQUIPPED:
 			// When held in third person
 			GL11.glTranslatef(0.5F, 0.5F, 0.5F);
-			GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F); // Make it vertical
+			GL11.glRotatef(0.0F, 90.0F, 0.0F, 0.0F); // Make it vertical
 			GL11.glRotatef(45.0F, 0.0F, 0.0F, 1.0F); // Rotate around Z for better view
 			GL11.glScalef(0.8F, 0.8F, 0.8F);
 			break;
@@ -56,14 +56,15 @@ public class ItemRenderNTMSteelBeamVertical implements IItemRenderer {
 			GL11.glScalef(0.8F, 0.8F, 0.8F);
 			break;
 		case INVENTORY:
-			// When in inventory/GUI - vertical beam (standing upright)
-			GL11.glTranslatef(0.5F, 0.4F, 0.0F);
-			GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);  // Rotate around Y for angled view
-			GL11.glRotatef(90.0F, 0.0F, 0.0F, 1.0F);  // Rotate to make it stand vertically
-			GL11.glScalef(1F, 1F, 1F);
-			break;
-		default:
-			break;
+    		// Center the model inside the inventory slot
+      		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
+			
+    		// Rotate the beam into its vertical orientation
+      		GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
+        	GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);
+			
+      		GL11.glScalef(1F, 1F, 1F);
+        	break;
 		}
 
 		// Bind texture
